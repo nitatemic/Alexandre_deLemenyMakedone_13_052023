@@ -3,5 +3,6 @@
 @use './tools/background.scss';
 @use './tools/screenReader';
 @use './components/home.scss';
+@use './components/navbar.scss';
 @use './components/hero.scss';
-@use './components/features.scss';
+@use './components/features';

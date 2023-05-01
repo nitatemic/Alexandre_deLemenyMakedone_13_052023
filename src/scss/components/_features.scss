@@ -3,9 +3,10 @@
   flex-direction: column;
 
   @media (min-width: 920px) {
-      flex-direction: row;
+    flex-direction: row;
   }
-
+}
+.feature {
   &-icon {
     width: 100px;
     border: 10px solid #00bc77;
@@ -24,5 +25,4 @@
       margin-bottom: 0.5rem;
     }
   }
-
 }
