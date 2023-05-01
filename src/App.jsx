@@ -3,7 +3,8 @@ import './scss/_main.scss';
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import './App.css';
 import Navbar from './components/Navbar';
-import Home from "./components/Home";
+import Home from './components/Home';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
               {/* Route 404 */}
               {/* <Route path="*" element={<Error />} /> */}
             </Routes>
+            <Footer />
           </main>
         </div>
       </Router>
