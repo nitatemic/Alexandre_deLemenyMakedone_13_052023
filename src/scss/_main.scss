@@ -1,4 +1,6 @@
 @use './tools/html.scss';
 @use './tools/body.scss';
-@use './tools/sr.scss';
+@use './tools/background.scss';
+@use './tools/screenReader';
 @use './components/main.scss';
+@use './components/hero.scss';
