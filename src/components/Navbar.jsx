@@ -14,7 +14,7 @@ export default function Navbar() {
       </a>
       <div>
         <a className="main-nav-item" href="./sign-in.html">
-          <i className="fa fa-user-circle"/>
+          <i className="fa fa-user-circle" />
           Sign In
         </a>
       </div>
