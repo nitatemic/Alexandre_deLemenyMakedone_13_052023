@@ -1,8 +1,14 @@
 @use './tools/html.scss';
 @use './tools/body.scss';
+@use './components/header.scss';
 @use './tools/background.scss';
 @use './tools/screenReader';
+@use './tools/input.scss';
 @use './components/home.scss';
 @use './components/navbar.scss';
 @use './components/hero.scss';
 @use './components/features';
+@use './components/account.scss';
+@use './components/transaction.scss';
+@use './components/editButton.scss';
+@use './components/footer.scss';
