@@ -1,20 +1,13 @@
 {
-    "env": {
-        "browser": true,
-        "es2021": true
-    },
-    "extends": [
-        "airbnb",
-        "airbnb/hooks"
-    ],
-    "rules": {
-        "indent": [2, "tab", { "SwitchCase": 1, "VariableDeclarator": 1 }],
-        "no-tabs": 0,
-        "react/prop-types": 0,
-        "react/jsx-indent": [2, "tab"],
-        "react/jsx-indent-props": [2, "tab"]
-    },
-    "parserOptions": {
-        "ecmaVersion": "latest"
-    }
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "airbnb",
+    "airbnb/hooks"
+  ],
+  "parserOptions": {
+    "ecmaVersion": "latest"
+  }
 }
