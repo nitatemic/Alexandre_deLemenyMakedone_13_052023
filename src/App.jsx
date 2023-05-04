@@ -5,21 +5,21 @@ import './App.css';
 import Navbar from './components/Navbar';
 import Home from './components/Home';
 import Footer from './components/Footer';
-import SignIn from './components/SignIn';
-import User from './components/User.jsx';
+import Login from './components/Login';
+import User from './components/User';
 
 function App() {
   return (
     <Router>
-      <Navbar/>
+      <Navbar />
       <Routes>
-        <Route exact path="/" element={<Home />}/>
-        <Route exact path="/signin" element={<SignIn />} />
+        <Route exact path="/" element={<Home />} />
+        <Route exact path="/login" element={<Login />} />
         <Route exact path="/user" element={<User />} />
         {/* Route 404 */}
         {/* <Route path="*" element={<Error />} /> */}
       </Routes>
-      <Footer/>
+      <Footer />
     </Router>
   );
 }
