@@ -13,6 +13,10 @@ export default function getUser(token) {
       if (res.error) {
         throw new Error(res.error);
       }
-      return res.body;
+      if (res.status !== 200) {
+        throw new Error(res.message);
+      } else {
+        return res.body;
+      }
     });
 }

@@ -1,24 +1,43 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import getUser from '../requests/user';
+import getBearerCookie from '../tools/getBearerCookie';
 
 export default function User() {
+  const [data, setData] = useState(null);
+
   useEffect(() => {
     async function loading() {
-      /* Get the cookie */
-      const { cookie } = document;
-      /* If the cookie is not set, redirect to login */
-      if (!cookie) {
+      /* Get the Bearer cookie */
+      const token = getBearerCookie();
+      if (token === null) {
+        /* Redirect to login */
         window.location.href = '/login';
       }
-
-      /* Get the token from the cookie */
-      const token = cookie.split('=')[1];
-      /* Fetch to the API */
-      const data = await getUser(token);
-      console.log(data);
+      try {
+        /* Fetch to the API */
+        const userData = await getUser(token);
+        setData(userData);
+      }
+      catch (err) {
+        /* Delete the cookie */
+        document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+        /* Redirect to login */
+        window.location.href = '/login';
+      }
     }
+
     loading();
   }, []);
+
+
+  if (!data) {
+    return (
+      <div>
+        <h1>Loading...</h1>
+      </div>
+    );
+  }
+
 
   return (
     <main className="main bg-dark">
@@ -26,7 +45,7 @@ export default function User() {
         <h1>
           Welcome back
           <br />
-          Tony Jarvis!
+          {data.firstName} {data.lastName}!
         </h1>
         <button className="edit-button" type="button">Edit Name</button>
       </div>
