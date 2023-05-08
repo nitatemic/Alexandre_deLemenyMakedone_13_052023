@@ -18,6 +18,10 @@ export default function Navbar() {
     name();
   }, [auth, token]);
 
+  function handleLogout() {
+    document.cookie = 'Bearer=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    window.location.href = '/';
+  }
   return (
     <nav className="main-nav">
       <Link to="./" className="main-nav-logo">
@@ -34,6 +38,10 @@ export default function Navbar() {
             <i className="fa fa-user-circle" />
             {firstName}
           </Link>
+          <a className="main-nav-item" onClick={handleLogout}>
+            <i className="fa fa-sign-out" />
+            Sign Out
+          </a>
         </div>
       )}
       {!auth && (
