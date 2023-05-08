@@ -20,12 +20,11 @@ export default function LoginForm() {
       if (rememberMe) {
         /* Cookie expires in 12 hours */
         document.cookie = `Bearer=${token}; max-age=${720 * 60}; path=/;`;
-        window.location.href = '/user';
       } else {
         /* Cookie that expires on closing the browser */
         document.cookie = `Bearer=${token}; path=/;`;
-        window.location.href = '/profile';
       }
+      window.location.href = '/profile';
     } catch (error) {
       console.log(error);
       /* TODO : Display error message */

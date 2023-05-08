@@ -43,6 +43,7 @@ export default function User() {
           Welcome back
           <br />
           {data.firstName}
+          {' '}
           {data.lastName}
           !
         </h1>
