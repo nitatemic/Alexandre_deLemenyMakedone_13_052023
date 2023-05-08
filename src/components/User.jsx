@@ -17,10 +17,9 @@ export default function User() {
         /* Fetch to the API */
         const userData = await getUser(token);
         setData(userData);
-      }
-      catch (err) {
+      } catch (err) {
         /* Delete the cookie */
-        document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+        document.cookie = 'Bearer=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
         /* Redirect to login */
         window.location.href = '/login';
       }
@@ -28,7 +27,6 @@ export default function User() {
 
     loading();
   }, []);
-
 
   if (!data) {
     return (
@@ -38,14 +36,15 @@ export default function User() {
     );
   }
 
-
   return (
     <main className="main bg-dark">
       <div className="header">
         <h1>
           Welcome back
           <br />
-          {data.firstName} {data.lastName}!
+          {data.firstName}
+          {data.lastName}
+          !
         </h1>
         <button className="edit-button" type="button">Edit Name</button>
       </div>

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import getToken from '../requests/login.js';
 
 export default function LoginForm() {
@@ -59,10 +58,6 @@ export default function LoginForm() {
           </label
           >
         </div>
-        {/* PLACEHOLDER DUE TO STATIC SITE */}
-        <Link to="/user">
-          <p className="sign-in-button">Sign In</p>
-        </Link>
         <button className="sign-in-button" id="sing-in-submit" type="submit" onClick={handleLogin}>Sign In</button>
       </form>
     </section>
