@@ -1,6 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import getUser from '../requests/user';
 
 export default function User() {
+  useEffect(() => {
+    async function loading() {
+      /* Get the cookie */
+      const { cookie } = document;
+      /* If the cookie is not set, redirect to login */
+      if (!cookie) {
+        window.location.href = '/login';
+      }
+
+      /* Get the token from the cookie */
+      const token = cookie.split('=')[1];
+      /* Fetch to the API */
+      const data = await getUser(token);
+      console.log(data);
+    }
+    loading();
+  }, []);
+
   return (
     <main className="main bg-dark">
       <div className="header">

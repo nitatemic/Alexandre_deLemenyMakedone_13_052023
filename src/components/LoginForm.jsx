@@ -25,7 +25,7 @@ export default function LoginForm() {
       } else {
         /* Cookie that expires on closing the browser */
         document.cookie = `Bearer=${token}; path=/;`;
-        window.location.href = '/user';
+        window.location.href = '/profile';
       }
     } catch (error) {
       console.log(error);
