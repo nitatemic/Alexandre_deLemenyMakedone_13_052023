@@ -13,6 +13,9 @@ export default function getToken(email, password) {
       if (res.error) {
         throw new Error(res.error);
       }
+      if (res.status !== 200) {
+        throw new Error(res.message);
+      }
       return res.body.token;
     });
 }

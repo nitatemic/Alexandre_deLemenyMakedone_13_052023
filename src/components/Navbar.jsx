@@ -47,7 +47,7 @@ export default function Navbar() {
       {!auth && (
         <div>
           <Link to="/login" className="main-nav-item">
-            <i className="fa fa-user-circle"/>
+            <i className="fa fa-user-circle" />
             Sign In
           </Link>
         </div>

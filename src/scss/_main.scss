@@ -5,10 +5,12 @@
 @use './tools/screenReader';
 @use './tools/input.scss';
 @use './components/home.scss';
+@use './components/signin.scss';
 @use './components/navbar.scss';
 @use './components/hero.scss';
 @use './components/features';
 @use './components/account.scss';
 @use './components/transaction.scss';
 @use './components/editButton.scss';
+@use './components/errorPage.scss';
 @use './components/footer.scss';

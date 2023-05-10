@@ -1,5 +1,5 @@
 import React from 'react';
-import getToken from '../requests/login.js';
+import getToken from '../requests/login';
 
 export default function LoginForm() {
   async function handleLogin() {

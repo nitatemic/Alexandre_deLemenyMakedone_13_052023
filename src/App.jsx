@@ -7,6 +7,7 @@ import Home from './components/Home';
 import Footer from './components/Footer';
 import Login from './components/Login';
 import User from './components/User';
+import ErrorPage from './components/ErrorPage';
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/profile" element={<User />} />
         {/* Route 404 */}
-        {/* <Route path="*" element={<Error />} /> */}
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
       <Footer />
     </Router>
