@@ -41,3 +41,21 @@ export function getFirstName(token) {
       }
     });
 }
+
+export function updateUserProfile(token, firstName, lastName) {
+  try {
+    return fetch(`${API}/user/profile`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        firstName,
+        lastName,
+      }),
+    });
+  } catch (err) {
+    throw new Error(err.message);
+  }
+}
