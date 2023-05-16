@@ -1,7 +1,13 @@
 import React from 'react';
+import {useDispatch} from 'react-redux';
+import {useNavigate} from 'react-router-dom';
 import getToken from '../requests/login';
+import {setUser} from '../store';
+import getUser from '../requests/user';
 
 export default function LoginForm() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   async function handleLogin() {
     /* Prevent the form from being submitted */
     event.preventDefault();
@@ -24,7 +30,9 @@ export default function LoginForm() {
         /* Cookie that expires on closing the browser */
         document.cookie = `Bearer=${token}; path=/;`;
       }
-      window.location.href = '/profile';
+      const data = await getUser(token);
+      dispatch(setUser(data));
+      navigate('/profile');
     } catch (error) {
       console.log(error);
       /* TODO : Display error message */

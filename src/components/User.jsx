@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import getUser, { updateUserProfile } from '../requests/user';
+import React, {useEffect, useState} from 'react';
+import getUser, {updateUserProfile} from '../requests/user';
 import getBearerCookie from '../tools/getBearerCookie';
 
 export default function User() {
@@ -55,7 +55,6 @@ export default function User() {
     setIsOnEdit(false);
   }
 
-
   if (!data) {
     return (
       <div>
@@ -92,17 +91,17 @@ export default function User() {
         </div>
         )}
         {!isOnEdit && (
-          <>
-            <h1>
-              Welcome back
-              <br />
-              {data.firstName}
-              {' '}
-              {data.lastName}
-              !
-            </h1>
-            <button className="edit-button" type="button" onClick={handleEdit}>Edit Name</button>
-          </>
+        <>
+          <h1>
+            Welcome back
+            <br />
+            {data.firstName}
+            {' '}
+            {data.lastName}
+            !
+          </h1>
+          <button className="edit-button" type="button" onClick={handleEdit}>Edit Name</button>
+        </>
         )}
       </div>
       <h2 className="sr-only">Accounts</h2>
