@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateUser } from '../store.js';
 
 export default function User() {
   const [data, setData] = useState(null);
   const [isOnEdit, setIsOnEdit] = useState(false);
   const user = useSelector((state) => state.user);
-
-
+  const dispatch = useDispatch();
+  const token = document.cookie.split('=')[1];
 
   useEffect(() => {
     setData(user);
@@ -20,13 +21,7 @@ export default function User() {
     /* Check if values are not empty */
     if (firstName && lastName) {
       /* Save values in state */
-      setData({ ...data, firstName, lastName });
-      /* Save values in store */
-      store.dispatch({
-        type: 'UPDATE_USER',
-        firstName,
-        lastName,
-      });
+      dispatch(updateUser(token, firstName, lastName));
       setIsOnEdit(false);
     }
   }
@@ -49,28 +44,35 @@ export default function User() {
     <main className="main bg-dark">
       <div className="header">
         {isOnEdit && (
-        <div className="edit-form">
-          <form>
-            <div className="form-group">
-              <input
-                type="text"
-                className="form-control"
-                id="firstName"
-                defaultValue={user.firstName}
-              />
+          <>
+            <h1>Welcome back</h1>
+            <div className="edit-form">
+              <form className="edit-form-form">
+                <div className="form-group-inputs">
+                  <div className="form-group-inputs-item">
+                    <input
+                      type="text"
+                      className="form-group-inputs-item-input"
+                      id="firstName"
+                      placeholder={user.firstName}
+                    />
+                  </div>
+                  <div className="form-group-inputs-item">
+                    <input
+                      type="text"
+                      className="form-group-inputs-item-input"
+                      id="lastName"
+                      placeholder={user.lastName}
+                    />
+                  </div>
+                </div>
+                <div className="form-group-buttons">
+                  <button type="submit" className="btn btn-primary form-group-buttons-item" onClick={handleSave}>Save</button>
+                  <button type="button" className="btn btn-primary form-group-buttons-item" onClick={handleEdit}>Cancel</button>
+                </div>
+              </form>
             </div>
-            <div className="form-group">
-              <input
-                type="text"
-                className="form-control"
-                id="lastName"
-                defaultValue={user.lastName}
-              />
-            </div>
-            <button type="submit" className="btn btn-primary" onClick={handleSave}>Save</button>
-            <button type="button" className="btn btn-primary" onClick={handleEdit}>Cancel</button>
-          </form>
-        </div>
+          </>
         )}
         {!isOnEdit && (
         <>

@@ -1,5 +1,7 @@
-import {configureStore, createSlice} from '@reduxjs/toolkit';
+import { configureStore, createSlice } from '@reduxjs/toolkit';
 import thunk from 'redux-thunk';
+
+const API = 'http://localhost:3001/api/v1';
 
 const userSlice = createSlice({
   name: 'user',
@@ -7,7 +9,10 @@ const userSlice = createSlice({
     firstName: '',
     lastName: '',
     email: '',
+    loading: false,
+    error: null,
   },
+
   reducers: {
     fetchUserRequest: (state) => {
       state.loading = true;
@@ -26,11 +31,20 @@ const userSlice = createSlice({
       state.error = action.payload;
     },
 
-
-    updateName: (state, action) => {
+    updateUserRequest: (state) => {
+      state.loading = true;
+      state.error = null;
+    },
+    updateUserSuccess: (state, action) => {
       const { firstName, lastName } = action.payload;
       state.firstName = firstName;
       state.lastName = lastName;
+      state.loading = false;
+      state.error = null;
+    },
+    updateUserFailure: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
     },
   },
 });
@@ -40,5 +54,31 @@ const store = configureStore({
   middleware: [thunk],
 });
 
-export const { setUser, updateName, fetchUserFailure, fetchUserRequest, fetchUserSuccess } = userSlice.actions;
+export const {
+  fetchUserRequest, fetchUserSuccess, fetchUserFailure,
+  updateUserRequest, updateUserSuccess, updateUserFailure,
+} = userSlice.actions;
+
+export const updateUser = (token, firstName, lastName) => async (dispatch) => {
+  dispatch(updateUserRequest());
+
+  return fetch(`${API}/user/profile`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ firstName, lastName }),
+  })
+    .then((res) => res.json())
+    .then(
+      (res) => {
+        if (res.status === 200) {
+          dispatch(updateUserSuccess(res.body));
+        } else {
+          dispatch(updateUserFailure(res.message));
+        }
+      },
+    );
+};
 export default store;
