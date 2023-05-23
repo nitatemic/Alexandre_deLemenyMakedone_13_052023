@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {useSelector} from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 export default function User() {
   const [data, setData] = useState(null);
@@ -7,8 +7,8 @@ export default function User() {
   const user = useSelector((state) => state.user);
 
 
+
   useEffect(() => {
-    console.log(user);
     setData(user);
   }, [user, data]);
 
@@ -37,8 +37,6 @@ export default function User() {
       setIsOnEdit(true);
     }
   }
-console.log(data);
-  console.log(user);
   if (!data) {
     return (
       <div>

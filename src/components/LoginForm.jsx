@@ -1,8 +1,8 @@
 import React from 'react';
-import {useDispatch} from 'react-redux';
-import {useNavigate} from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import getToken from '../requests/login';
-import {fetchUser} from '../requests/user';
+import { fetchUser } from '../requests/user';
 
 export default function LoginForm() {
   const navigate = useNavigate();
