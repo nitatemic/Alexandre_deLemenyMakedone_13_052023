@@ -1,4 +1,4 @@
-import {configureStore, createSlice,} from '@reduxjs/toolkit';
+import {configureStore, createSlice} from '@reduxjs/toolkit';
 import thunk from 'redux-thunk';
 
 const userSlice = createSlice({
@@ -9,25 +9,36 @@ const userSlice = createSlice({
     email: '',
   },
   reducers: {
-    setUser: (state, action) => {
-      const {email, firstName, lastName} = action.payload;
+    fetchUserRequest: (state) => {
+      state.loading = true;
+      state.error = null;
+    },
+    fetchUserSuccess: (state, action) => {
+      const { email, firstName, lastName } = action.payload;
       state.email = email;
       state.firstName = firstName;
       state.lastName = lastName;
+      state.loading = false;
+      state.error = null;
     },
+    fetchUserFailure: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+
+
     updateName: (state, action) => {
-      const {firstName, lastName} = action.payload;
+      const { firstName, lastName } = action.payload;
       state.firstName = firstName;
       state.lastName = lastName;
     },
   },
 });
 
-
 const store = configureStore({
-  reducer: userSlice.reducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
+  reducer: { user: userSlice.reducer },
+  middleware: [thunk],
 });
 
-export const { setUser, updateName } = userSlice.actions;
+export const { setUser, updateName, fetchUserFailure, fetchUserRequest, fetchUserSuccess } = userSlice.actions;
 export default store;

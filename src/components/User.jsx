@@ -1,34 +1,35 @@
 import React, {useEffect, useState} from 'react';
-import getUser, {updateUserProfile} from '../requests/user';
-import getBearerCookie from '../tools/getBearerCookie';
+import {useSelector} from 'react-redux';
 
 export default function User() {
   const [data, setData] = useState(null);
   const [isOnEdit, setIsOnEdit] = useState(false);
+  const user = useSelector((state) => state.user);
+
 
   useEffect(() => {
-    async function loading() {
-      /* Get the Bearer cookie */
-      const token = getBearerCookie();
-      if (token === null) {
-        /* Redirect to login */
-        window.location.href = '/login';
-      }
-      try {
-        /* Fetch to the API */
-        const userData = await getUser(token);
-        setData(userData);
-      } catch (err) {
-        /* Delete the cookie */
-        document.cookie = 'Bearer=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-        /* Redirect to login */
-        window.location.href = '/login';
-      }
+    console.log(user);
+    setData(user);
+  }, [user, data]);
+
+  function handleSave() {
+    /* Get values from form */
+    const firstName = document.getElementById('firstName').value;
+    const lastName = document.getElementById('lastName').value;
+
+    /* Check if values are not empty */
+    if (firstName && lastName) {
+      /* Save values in state */
+      setData({ ...data, firstName, lastName });
+      /* Save values in store */
+      store.dispatch({
+        type: 'UPDATE_USER',
+        firstName,
+        lastName,
+      });
+      setIsOnEdit(false);
     }
-
-    loading();
-  }, []);
-
+  }
   function handleEdit() {
     if (isOnEdit) {
       setIsOnEdit(false);
@@ -36,25 +37,8 @@ export default function User() {
       setIsOnEdit(true);
     }
   }
-
-  async function handleSave() {
-    /* Check if the inputs are empty */
-    if (document.getElementById('firstName').value === '' || document.getElementById('lastName').value === '') {
-      alert('Please fill in all fields');
-      return;
-    }
-    /* Get the inputs */
-    const firstName = document.getElementById('firstName').value;
-    const lastName = document.getElementById('lastName').value;
-
-    /* Update the data */
-    await updateUserProfile(getBearerCookie(), firstName, lastName);
-    /* Update the state */
-    setData(getUser(getBearerCookie()));
-    /* Set the edit mode to false */
-    setIsOnEdit(false);
-  }
-
+console.log(data);
+  console.log(user);
   if (!data) {
     return (
       <div>
@@ -74,7 +58,7 @@ export default function User() {
                 type="text"
                 className="form-control"
                 id="firstName"
-                defaultValue={data.firstName}
+                defaultValue={user.firstName}
               />
             </div>
             <div className="form-group">
@@ -82,7 +66,7 @@ export default function User() {
                 type="text"
                 className="form-control"
                 id="lastName"
-                defaultValue={data.lastName}
+                defaultValue={user.lastName}
               />
             </div>
             <button type="submit" className="btn btn-primary" onClick={handleSave}>Save</button>

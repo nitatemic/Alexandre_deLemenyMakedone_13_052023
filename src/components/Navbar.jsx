@@ -1,22 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import {Link} from 'react-router-dom';
 import argentBankLogo from '../assets/img/argentBankLogo.png';
-import { getFirstName } from '../requests/user';
+import {useSelector} from 'react-redux';
 
 export default function Navbar() {
   const auth = document.cookie.indexOf('Bearer') !== -1;
-  const token = document.cookie.split('=')[1];
 
   const [firstName, setFirstName] = useState('My profile');
+  const user = useSelector((state) => state.user);
+
 
   useEffect(() => {
-    async function name() {
-      if (auth) {
-        setFirstName(await getFirstName(token));
-      }
-    }
-    name();
-  }, [auth, token]);
+    setFirstName(user.firstName);
+  }, [user, firstName]);
 
   function handleLogout() {
     document.cookie = 'Bearer=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';

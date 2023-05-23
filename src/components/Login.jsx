@@ -10,7 +10,7 @@ export default function Login() {
       const { cookie } = document;
       /* If the cookie is set, redirect to profile */
       if (cookie) {
-          navigate('/profile');
+        navigate('/profile');
       }
     }
     loading();
