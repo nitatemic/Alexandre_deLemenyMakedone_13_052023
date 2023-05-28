@@ -11,7 +11,7 @@ export default function User() {
 
   useEffect(() => {
     setData(user);
-  }, [user, data]);
+  }, [user]);
 
   function handleSave() {
     /* Get values from form */
