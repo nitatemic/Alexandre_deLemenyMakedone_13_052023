@@ -60,7 +60,7 @@ paths:
   /user/profile:
     post:
       security:
-        - Bearer: []
+        - Bearer: [ ]
       tags:
         - User Module
       summary: User Profile API
@@ -84,7 +84,7 @@ paths:
           description: Internal Server Error
     put:
       security:
-        - Bearer: []
+        - Bearer: [ ]
       tags:
         - User Module
       summary: User Profile API
@@ -113,91 +113,40 @@ paths:
         '500':
           description: Internal Server Error
   /user/transaction:
-      get:
-        security:
-          - Bearer: [ ]
-        tags:
-          - Transaction Module
-        summary: Transaction API
-        description: API for fetching all transactions of a user
-        parameters:
-          - in: header
-            name: Authorization
-            description: Attach Bearer JWT token
-            type: string
-            required: true
-        produces:
-          - application/json
-        responses:
-          '200':
-            description: List of transactions retrieved successfully
-            schema:
-              $ref: '#/definitions/TransactionsList' #TODO - Add Transaction Response
-          '401':
-            description: Unauthorized
-          '403':
-            description: Forbidden
-          '500':
-            description: Internal Server Error
-      post:
-        security:
-          - Bearer: [ ]
-        tags:
-          - Transaction Module
-        summary: Transaction API
-        description: API for creating a transaction
-        parameters:
-          - in: header
-            name: Authorization
-            description: Attach Bearer JWT token
-            type: string
-            required: true
-          - in: body
-            name: body
-            description: Transaction Payload
-            required: true
-            schema:
-              $ref: '#/definitions/Transaction'
-        produces:
-          - application/json
-        responses:
-          '200':
-            description: User profile retrieved successfully
-            schema:
-              $ref: '#/definitions/TransactionApiResponse'
-          '400':
-            description: Invalid Fields
-          '500':
-            description: Internal Server Error
-  /user/transaction/:id:
-    get:
+    post:
       security:
         - Bearer: [ ]
       tags:
         - Transaction Module
       summary: Transaction API
-      description: API for fetching a transaction by id
+      description: API for fetching a transaction if ID provided or all transactions if no ID provided
       parameters:
         - in: header
           name: Authorization
           description: Attach Bearer JWT token
           type: string
           required: true
+        - in: body
+          name: body
+          description: Transaction Payload. If empty, return all transactions
+          required: true
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
       produces:
         - application/json
       responses:
         '200':
-          description: Transaction retrieved successfully
+          description: User profile retrieved successfully
           schema:
-            $ref: '#/definitions/TransactionApiResponse' #TODO - Add Transaction Response
-        '401':
-          description: Unauthorized
-        '403':
-          description: Forbidden
-        '404':
-          description: Transaction Not Found
+            $ref: '#/definitions/TransactionApiResponse'
+        '400':
+          description: Invalid Fields
         '500':
           description: Internal Server Error
+  /user/transaction/:id:
     put:
       security:
         - Bearer: [ ]
@@ -216,7 +165,14 @@ paths:
           description: Transaction Payload
           required: true
           schema:
-            $ref: '#/definitions/UserProfile' #TODO - Add Transaction Request
+            type: object
+            properties:
+              id:
+                type: integer
+              category:
+                type: string
+              notes:
+                type: string
       produces:
         - application/json
       responses:
@@ -224,34 +180,6 @@ paths:
           description: Transaction updated successfully
           schema:
             $ref: '#/definitions/TransactionApiResponse'
-        '401':
-          description: Unauthorized
-        '403':
-          description: Forbidden
-        '404':
-          description: Transaction Not Found
-        '500':
-          description: Internal Server Error
-    delete:
-      security:
-        - Bearer: [ ]
-      tags:
-        - Transaction Module
-      summary: Transaction API
-      description: API for updating a transaction
-      parameters:
-        - in: header
-          name: Authorization
-          description: Attach Bearer JWT token
-          type: string
-          required: true
-      produces:
-        - application/json
-      responses:
-        '200':
-          description: Transaction deleted successfully
-          schema:
-            $ref: '#/definitions/ApiResponse' #TODO - Add Transaction Request
         '401':
           description: Unauthorized
         '403':
@@ -314,15 +242,6 @@ definitions:
         type: string
       lastName:
         type: string
-
-  TransactionsList:
-    type: object
-    properties:
-      transactions:
-        type: array
-        items:
-          $ref: '#/definitions/Transaction'
-
   Transaction:
     type: object
     properties:
@@ -350,4 +269,6 @@ definitions:
       message:
         type: string
       body:
-        $ref: '#/definitions/Transaction'
+        type: array
+        items:
+          $ref: "#/definitions/Transaction"
