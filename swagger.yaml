@@ -128,11 +128,13 @@ paths:
           required: true
         - in: body
           name: body
-          description: Transaction Payload. If empty, return all transactions
+          description: Transaction Payload. If empty, return all transactions of user. If account id provided, return all transactions of this account. If transaction id provided, return only this transaction.
           required: true
           schema:
             type: object
             properties:
+              account:
+                type: integer
               id:
                 type: integer
       produces:
@@ -246,6 +248,8 @@ definitions:
     type: object
     properties:
       id:
+        type: integer
+      account:
         type: integer
       date:
         type: string
